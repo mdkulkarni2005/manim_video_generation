@@ -4,7 +4,7 @@ Follow these steps to set up and run the project locally:
 
 ## 1. Clone the repository
 ```sh
-git clone <your-repo-url>
+git clone https://github.com/mdkulkarni2005/manim_video_generation
 cd manim_video_generation
 ```
 
