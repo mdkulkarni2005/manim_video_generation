@@ -1,5 +1,13 @@
 import { useState } from 'react'
 import './App.css'
+import {
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  SignUpButton,
+  UserButton,
+  useAuth,
+} from '@clerk/clerk-react'
 
 function App() {
   const [prompt, setPrompt] = useState('')
@@ -9,9 +17,15 @@ function App() {
   const [error, setError] = useState<string | null>(null)
   const [chatHistory, setChatHistory] = useState<{ prompt: string; code: string; videoUrl: string }[]>([])
   const [activeTab, setActiveTab] = useState<'code' | 'video'>('video')
+  const { isSignedIn } = useAuth();
+  const [showAuthModal, setShowAuthModal] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
+    if (!isSignedIn) {
+      setShowAuthModal(true);
+      return;
+    }
     setLoading(true)
     setError(null)
     setVideoUrl(null)
@@ -50,6 +64,15 @@ function App() {
       </aside>
       {/* Right: Main Content */}
       <main className="main-content">
+        <header style={{ width: '100%', marginBottom: '2rem', display: 'flex', justifyContent: 'flex-end', gap: '1rem' }}>
+          <SignedOut>
+            <SignInButton mode="modal" />
+            <SignUpButton mode="modal" />
+          </SignedOut>
+          <SignedIn>
+            <UserButton />
+          </SignedIn>
+        </header>
         <h1 className="title gradient-text">Prompt Video Generator</h1>
         <form className="prompt-form" onSubmit={handleSubmit}>
           <input
@@ -95,6 +118,19 @@ function App() {
                   <code>{code}</code>
                 </pre>
               )}
+            </div>
+          </div>
+        )}
+        {showAuthModal && (
+          <div className="auth-modal-backdrop" onClick={() => setShowAuthModal(false)}>
+            <div className="auth-modal" onClick={e => e.stopPropagation()}>
+              <h3 className="auth-modal-title">You are not logged in</h3>
+              <p className="auth-modal-desc">Please sign in or sign up to continue generating videos.</p>
+              <div className="auth-modal-actions">
+                <SignInButton mode="modal" />
+                <SignUpButton mode="modal" />
+              </div>
+              <button className="auth-modal-close" onClick={() => setShowAuthModal(false)}>Close</button>
             </div>
           </div>
         )}
