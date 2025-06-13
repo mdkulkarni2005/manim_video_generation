@@ -1,3 +1,54 @@
+# Local Development Setup
+
+Follow these steps to set up and run the project locally:
+
+## 1. Clone the repository
+```sh
+git clone <your-repo-url>
+cd manim_video_generation
+```
+
+## 2. Install dependencies
+```sh
+npm install
+```
+
+## 3. Set up environment variables
+- Copy `.env.example` to `.env.local`:
+  ```sh
+  cp .env.example .env.local
+  ```
+- Add your Google Gemini API key to `.env.local` (already included if you use the provided key).
+
+## 4. Start the backend (FastAPI)
+You can run the backend directly or with Docker Compose:
+
+### Option A: Using Docker Compose
+```sh
+docker-compose up
+```
+
+### Option B: Manually (requires Python 3.12+ and pip)
+```sh
+pip install -r requirements.txt
+uvicorn backend:app --reload
+```
+
+## 5. Start the frontend (Vite + React)
+```sh
+npm run dev
+```
+
+The frontend will be available at http://localhost:5173 and the backend at http://localhost:8000 (or http://localhost:8080 if using Docker Compose).
+
+---
+
+## Environment Variables
+- See `.env.example` for required variables.
+- Do not commit your `.env.local` with real API keys to version control.
+
+---
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
