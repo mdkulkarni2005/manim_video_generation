@@ -30,19 +30,25 @@ function App() {
     setError(null)
     setVideoUrl(null)
     setCode(null)
-    // Simulate backend call
-    setTimeout(() => {
-      const fakeCode = `# Example Python code\nprint('This is your generated code for: ${prompt}')`;
-      const fakeVideo = 'https://www.w3schools.com/html/mov_bbb.mp4';
-      setCode(fakeCode)
-      setVideoUrl(fakeVideo)
+    try {
+      const res = await fetch('http://localhost:8000/generate-code', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ prompt })
+      });
+      const data = await res.json();
+      setCode(data.code || 'No code returned.');
+      setVideoUrl('https://www.w3schools.com/html/mov_bbb.mp4'); // Placeholder
       setChatHistory(prev => [
-        { prompt, code: fakeCode, videoUrl: fakeVideo },
+        { prompt, code: data.code || '', videoUrl: 'https://www.w3schools.com/html/mov_bbb.mp4' },
         ...prev
-      ])
-      setLoading(false)
-      setActiveTab('video')
-    }, 1500)
+      ]);
+      setActiveTab('video');
+    } catch (err) {
+      setError('Failed to generate code. Please try again.');
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
