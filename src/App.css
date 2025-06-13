@@ -161,6 +161,8 @@ body {
   display: flex;
   flex-direction: column;
   background: var(--bg-light);
+  min-height: 100vh;
+  position: relative;
 }
 
 .app-header {
@@ -991,10 +993,18 @@ body {
     width: 100%;
     min-height: unset;
     max-height: 250px;
+    overflow-y: auto;
   }
   
   .main-content {
     min-height: 0;
+    overflow-x: hidden; /* Prevent horizontal scroll */
+  }
+  
+  .main-container {
+    padding: 1.5rem 1rem;
+    width: 100%;
+    overflow-x: hidden;
   }
   
   .processing-animation {
@@ -1015,6 +1025,21 @@ body {
   .send-btn {
     width: 100%;
     border-radius: var(--border-radius);
+  }
+  
+  .tabbed-output {
+    width: 100%;
+    max-width: 100%;
+  }
+  
+  .tab-content {
+    overflow: hidden;
+    width: 100%;
+  }
+  
+  .welcome-placeholder {
+    padding: 2rem 1rem;
+    margin-top: 1rem;
   }
 }
 
@@ -1037,23 +1062,48 @@ body {
     flex-direction: column;
     gap: 1rem;
   }
+  
+  .main-content {
+    padding: 0 0.5rem;
+  }
+  .main-container {
+    padding: 1rem 0.25rem;
+  }
+  .welcome-placeholder {
+    padding: 1.2rem 0.5rem;
+    margin-top: 0.5rem;
+    min-height: 320px;
+  }
+  .placeholder-steps {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .examples-section {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+  .step-card {
+    width: 100%;
+    min-width: 0;
+  }
 }
 
-@media (max-width: 768px) {
-  .feature-highlights {
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-  }
-  
-  .feature {
-    width: 100%;
-    max-width: 300px;
-  }
-  
-  .footer-content {
-    flex-direction: column;
-    gap: 1rem;
-    text-align: center;
-  }
+/* Always fill right side with placeholder if empty */
+.main-content {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+}
+
+.welcome-placeholder {
+  flex: 1 1 auto;
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2rem;
 }
