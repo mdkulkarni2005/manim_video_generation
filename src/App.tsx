@@ -119,10 +119,12 @@ function App() {
                   <div className="video-caption">Your generated video</div>
                 </div>
               )}
-              {activeTab === 'code' && code && (
-                <pre className="code-block">
-                  <code>{code}</code>
-                </pre>
+              {activeTab === 'code' && (
+                <iframe
+                  src="http://localhost:8080"
+                  style={{ width: '100%', height: '600px', border: 'none', borderRadius: '1rem' }}
+                  title="VS Code Browser"
+                />
               )}
             </div>
           </div>
