@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
 import {
   SignedIn,
@@ -38,9 +38,21 @@ function App() {
       });
       const data = await res.json();
       setCode(data.code || 'No code returned.');
-      setVideoUrl('https://www.w3schools.com/html/mov_bbb.mp4'); // Placeholder
+      
+      // Check if we have a video URL from the backend
+      if (data.videoUrl) {
+        setVideoUrl(`http://localhost:8000${data.videoUrl}`);
+      } else {
+        // Use placeholder if no video is available
+        setVideoUrl('https://www.w3schools.com/html/mov_bbb.mp4');
+      }
+      
       setChatHistory(prev => [
-        { prompt, code: data.code || '', videoUrl: 'https://www.w3schools.com/html/mov_bbb.mp4' },
+        { 
+          prompt, 
+          code: data.code || '', 
+          videoUrl: data.videoUrl ? `http://localhost:8000${data.videoUrl}` : 'https://www.w3schools.com/html/mov_bbb.mp4' 
+        },
         ...prev
       ]);
       setActiveTab('video');
