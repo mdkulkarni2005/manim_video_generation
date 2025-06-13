@@ -8,6 +8,8 @@ import {
   UserButton,
   useAuth,
 } from '@clerk/clerk-react'
+import FutureFeatures from './components/FutureFeatures'
+import './components/FutureFeatures.css'
 
 // Animation examples to suggest to users
 const ANIMATION_EXAMPLES = [
@@ -348,36 +350,27 @@ function App() {
                     <div className="example-img-icon">〰️</div>
                   </div>
                   <div className="example-content">
-                    <div className="example-title">Sine & Cosine</div>
-                    <div className="example-desc">Visualize trigonometric functions</div>
+                    <div className="example-title">Sine and Cosine</div>
+                    <div className="example-desc">Trigonometric functions visualized</div>
                   </div>
                 </div>
               </div>
-            </div>
-          ) : null}
-          
-          {showAuthModal && (
-            <div className="auth-modal-backdrop" onClick={() => setShowAuthModal(false)}>
-              <div className="auth-modal" onClick={e => e.stopPropagation()}>
-                <h3 className="auth-modal-title">Sign in to continue</h3>
-                <p className="auth-modal-desc">Please sign in or create an account to generate animations.</p>
-                <div className="auth-modal-actions">
-                  <SignInButton mode="modal" />
-                  <SignUpButton mode="modal" />
-                </div>
-                <button className="auth-modal-close" onClick={() => setShowAuthModal(false)}>Close</button>
+              
+              {/* Future Features Section */}
+              <div style={{ marginTop: '2rem', width: '100%' }}>
+                <FutureFeatures />
               </div>
             </div>
-          )}
+          ) : null}
         </div>
         
         <footer className="app-footer">
           <div className="footer-content">
-            <div className="footer-text">Powered by Manim and AI</div>
+            <div className="footer-text">© 2025 Manim Generator</div>
             <div className="footer-links">
-              <a href="https://docs.manim.community/" target="_blank" rel="noopener noreferrer">Manim Docs</a>
-              <a href="#" onClick={(e) => { e.preventDefault(); alert('Coming soon!'); }}>About</a>
-              <a href="#" onClick={(e) => { e.preventDefault(); alert('Coming soon!'); }}>Help</a>
+              <a href="#">About</a>
+              <a href="#">Documentation</a>
+              <a href="#">GitHub</a>
             </div>
           </div>
         </footer>
